@@ -5,3 +5,5 @@
 * Повторная отправка лайка означает отмену лайка, отменять можно в течение ограниченного времени.
 
 Методы, которые необходимо реализовать в swagger.yaml
+
+When using JWTs, make sure to expose your endpoints using the HTTPS scheme to protect the integrity of the data exchanged using JWT from man-in-the-middle attacks.

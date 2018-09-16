@@ -1,32 +1,27 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework_jwt.views import obtain_jwt_token
 
 from core import views
 
-router = DefaultRouter()
-router.register(r'snippets', views.SnippetViewSet)
-router.register(r'users', views.UserViewSet)
+# router = DefaultRouter()
+# router.register(r'snippets', views.SnippetViewSet)
+# router.register(r'users', views.UserViewSet)
+
+# topic_create = TopicViewSet.as_view({
+#     'post': 'create'
+# })
+# topic_list = TopicViewSet.as_view({
+#     'get': 'list',
+# })
+
 
 # API endpoints
 urlpatterns = [
-    path()
-]
+    path('topic.create/', views.TopicCreate.as_view(), name='topic-create'),
+    path('topic.list/', views.TopicList.as_view(), name='topic-list'),
+    path('api-token-auth/', obtain_jwt_token, name='create-token'),
+    path('auth.login/', views.LoginView.as_view(), name='auth-login'),
 
-# urlpatterns = format_suffix_patterns([
-#     url(r'^$', views.api_root),
-#     url(r'^snippets/$',
-#         views.SnippetList.as_view(),
-#         name='snippet-list'),
-#     url(r'^snippets/(?P<pk>[0-9]+)/$',
-#         views.SnippetDetail.as_view(),
-#         name='snippet-detail'),
-#     url(r'^snippets/(?P<pk>[0-9]+)/highlight/$',
-#         views.SnippetHighlight.as_view(),
-#         name='snippet-highlight'),
-#     url(r'^users/$',
-#         views.UserList.as_view(),
-#         name='user-list'),
-#     url(r'^users/(?P<pk>[0-9]+)/$',
-#         views.UserDetail.as_view(),
-#         name='user-detail')
-# ])
+]

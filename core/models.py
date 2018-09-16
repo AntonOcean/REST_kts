@@ -5,13 +5,16 @@ from django.db import models
 class Topic(models.Model):
     title = models.CharField(max_length=100)
     body = models.TextField(max_length=500)
-    creator = models.ForeignKey(User, related_name='topics', on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, related_name='topics', blank=True, on_delete=models.CASCADE)
     created = models.DateField(auto_now_add=True)
     number_of_likes = models.PositiveIntegerField(default=0)
     number_of_comments = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ('created', )
+
+    def __str__(self):
+        return "{} - {}".format(self.title, self.creator)
 
 
 class Comment(models.Model):
