@@ -68,6 +68,27 @@ class BaseViewTest(APITestCase):
         self.create_topic("love is wicked", "brick and lace", self.user.id)
         self.create_topic("jam rock", "damien marley", self.user.id)
 
+
+class AuthLogoutUserTest(BaseViewTest):
+    """
+    Tests for the auth/login/ endpoint
+    """
+
+    def test_login_user_with_valid_credentials(self):
+        # test out
+        response = self.client.post(
+            reverse('auth-logout'),
+        )
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        self.login_client('test_user', 'testing')
+
+        response = self.client.post(
+            reverse('auth-logout'),
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
 class AuthLoginUserTest(BaseViewTest):
     """
     Tests for the auth/login/ endpoint

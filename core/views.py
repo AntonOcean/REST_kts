@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from rest_framework import viewsets, generics, permissions, status, renderers
@@ -55,3 +55,13 @@ class LoginView(generics.CreateAPIView):
             serializer.is_valid()
             return Response(serializer.data)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+
+class LogoutView(generics.CreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    queryset = User.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        return Response(status=status.HTTP_200_OK)
